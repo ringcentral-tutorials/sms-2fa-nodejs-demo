@@ -1,7 +1,7 @@
 .chapter(data-title='2FA Tutorial')
   .step(data-title='Welcome!', data-file='tutorial/config.json')
     :markdown
-      ### Welcome to the tutorial
+      ### Two-Factor Authentication
       This tutorial shows how to use RingCentral SMS API to send a verification code for 2-factor authentication to help prevent brute force attacks and protect user's accounts.
 
       ** Use case 1: Protect a user account from brute force attacks. **
@@ -89,11 +89,11 @@
 
       In this tutorial, we'll implement 3 pages:
 
-      __views/signup.ejs__: this page contains a form for users to sign up.
+      __signup.ejs__: this page contains a form for users to sign up.
 
-      __views/index.ejs__: this page contains forms for users to login and reset password.
+      __index.ejs__: this page contains forms for users to login and reset password.
 
-      __views/about.ejs__: this page contains information about this tutorial.
+      __about.ejs__: this page contains information about this tutorial.
 
       ### Client-side JavaScript codes
       The client-side JavaScript files are located under the __public/js__ folder.
@@ -134,7 +134,7 @@
 
       If the server response with no error, we then launch the main page, which will show the login form. If it is an error, we will pop up an alert dialog with the error message.
 
-  .step(data-title='Implement signup server-side', data-file='engine.js', data-highlight='260-279')
+  .step(data-title='Implement signup server-side', data-file='engine.js', data-highlight='258-278')
     :markdown
       ### Implement signup server-side
       In the __engine.js__ file, we implement the __signup__ function which will be called when a _signup_ request is made from the client-side.
