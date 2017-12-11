@@ -3,3 +3,7 @@
 npm-debug.log
 .DS_Store
 /*.env
+/tutorial
+/ace
+viewsaurus.*
+index.html
