@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>2-Factor Authentication Demo</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="/" class="navbar-brand"><b>2-Factor</b> AUTHENTICATION</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="/">Login</a></li>
+        <li><a href="/signup">Signup</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://www.ringcentral.com" target="_blank">Powered by&nbsp;<img alt="Brand" src="img/ringcentral.png" height="20"></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id='content'>
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>Overview</h2>
+        <p>
+          This demo Web app shows how to use RingCentral SMS API to implement a 2-Factor Authentication (2FA) service.
+          2FA helps prevent brute force attacks and protect user's accounts.
+        </p>
+        <p>
+          <h3>Use case 1: Protect a user account from brute force attacks.</h3> After 3 unsuccessful attempts were made to log into a user's account, the account will be temporarily locked. The service will generate a 6-digit verification code and send the code to the user's mobile phone number. The user has to use the verification code to unlock his/her account. The verification code can be used only one time and it also expires after 1 hour. If the verification code is incorrect, or if the verification code expired, the user has to request for a new verification code.
+        </p>
+        <p>
+          <h3>Use case 2: Prevent taking over login control.</h3> When a user wants to reset the login password. The service will generate a 6-digit verification code and send the code to the user's mobile phone number. The user has to use the verification code to set a new password for his/her account. The verification code can be used only one time and it also expires after 1 hour. If the verification code is incorrect, or if the verification code expired, the user has to request for a new verification code.
+        </p>
+
+        <h2>RingCentral Connect Platform</h2>
+        <p>
+          RingCentral Connect Platform is a rich RESTful API platform with more than 60 APIs for business communication includes advanced voice calls, chat messaging, SMS/MMS and Fax.
+        </p>
+        <h2>RingCentral Developer Portal</h2>
+        <p>
+          To setup a free developer account, click <a href="https://developer/ringcentral.com" target="_top">here</a>.
+        </p>
+
+        <h2>How to run the demo</h2>
+        <ol>
+          <li>Click the Signup tab and complete the signup form to create an account. Use a real phone number!</li>
+          <li>Click the Login tab and try to login 3 times with an incorrect password.</li>
+          <li>Check your SMS message to get the verification code.</li>
+          <li>Enter the verification code to unlock the account.</li>
+        </ol>
+        <h2>Technologies used</h2>
+        <ul>
+          <li><a href='https://developer.ringcentral.com/api-docs/latest/index.html#!#RefSMSMessages.html' target='_blank'>RingCentral's SMS API</a></li>
+          <li><a href='https://www.sqlite.org/' target='_blank'>SQlite</a></li>
+          <li><a href='https://expressjs.com/' target='_blank'>Express</a></li>
+          <li><a href='https://nodejs.org/en/' target='_blank'>Node.js</a></li>
+        </ul>
+        <h2>Additional information</h2>
+        <ul>
+          <li>Source code: <a href='https://github.com/ringcentral/2f-auth-node' target='_blank'>Github</a></li>
+          <li>Created by: <a href='https://twitter.com/pacovu' target='_blank'>Paco Vu</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

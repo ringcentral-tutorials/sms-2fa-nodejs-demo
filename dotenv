@@ -1,0 +1,9 @@
+PORT=3000
+RC_ENV=sandbox
+LOCAL_ENV=localhost
+RC_APP_NAME=2FactorAuth
+RC_SERVER=https://platform.devtest.ringcentral.com
+RC_APP_KEY=Your-App-Key
+RC_APP_SECRET=Your-App-Secret
+RC_USERNAME=Your-Account-Username
+RC_PASSWORD=Your-Account-Password
