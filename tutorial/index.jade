@@ -95,8 +95,8 @@
 
       __about.ejs__: this page contains information about this tutorial.
 
-      ### Client-side JavaScript codes
-      The client-side JavaScript files are located under the __public/js__ folder.
+      ### Client-side JavaScript code
+      Client-side JavaScript files are located under the __public/js__ folder.
 
       We'll implement all functions in the _main.js_ file.
 
@@ -163,7 +163,7 @@
 
       Then we implement the __login__ function which will be called programmatically when we get the seed from our server.
 
-      Inside the client-side __login__ function, we will post a _login_ request with the user's email address, the encrypted the password and the id of the seed to the server.
+      Inside the client-side __login__ function, we will post a _login_ request with the user's email address, the encrypted password and the id of the seed to the server.
 
   .step(data-title='Implement login server-side - step 1', data-file='engine.js', data-highlight='13-34')
     :markdown
@@ -215,7 +215,7 @@
       ### Login to RingCentral account
       To login RingCentral account, we call the `platform.login()` function with the account's username and password predefined in the _.env_ file.
 
-  .step(data-title='Send verification code', data-file='engine.js', data-highlight='301-307')
+  .step(data-title='Send a verification code', data-file='engine.js', data-highlight='301-307')
     :markdown
       ### Generate a verification code
       After we logged in RingCentral account successfully, we use the __randomatic__ library to generate a verification code.
@@ -228,7 +228,7 @@
       }
       ```
 
-      ### Send a SMS message
+      ### Send a verification code via SMS message
       We use the `platform.post()` function to call the SMS API with the specified parameters:
 
       The `from` number is our RingCentral phone number specified in the environment file.
@@ -237,9 +237,9 @@
 
       The `text` contains the verification code we generated above.
 
-  .step(data-title='Save verification code', data-file='engine.js', data-highlight='308-321')
+  .step(data-title='Save the verification code', data-file='engine.js', data-highlight='308-321')
     :markdown
-      ### Save verification code
+      ### Save the verification code
       After we sent the verification code successfully, we generate a timestamp and save the verification code and the timestamp to the user database.
 
       Finally, we send a response back to the client to notify the user that the user account is locked and a verification code was sent to the user's mobile phone number.
@@ -247,7 +247,7 @@
   .step(data-title='Unlock a user account - client-side', data-file='public/js/main.js', data-highlight='97-118')
     :markdown
       ### Unlock a user account - client-side
-      When a user's account is locked, we ask the user to provide the verification code to unlock the account before the user can retry to login.
+      When a user's account is locked, we ask a user to provide a verification code to unlock the account before the user can retry to login.
 
       We implement the __verifyPasscode__ function which will be called when a user clicks the Submit button from the verification form.
 
