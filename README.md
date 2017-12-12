@@ -19,7 +19,12 @@ To setup a free developer account, click [https://developer/ringcentral.com](her
 * Click the Signup tab and complete the signup form to create an account. Use a real phone number!
 * Click the Login tab and try to login 3 times with an incorrect password.
 * Check your SMS message to get the verification code.
-* Enter the verification code to unlock the account.
+* Enter the verification code to unlock the account. Then login with a correct password.
+* Click the Login tab and click the Reset password link.
+* Enter the account email address and click the Submit button.
+* Check your SMS message to get the verification code.
+* Enter a new password and the verification code then click the Submit button to change the password.
+* Login with a new password.
 
 ### Clone the project
 ```
