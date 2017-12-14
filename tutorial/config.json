@@ -1,6 +1,6 @@
 {
     "title": "How to implement Two-Factor Authentication",
-    "repo": "ringcentral-tutorials/2f-auth-node",
-    "description": "Learn how to implement 2-Factor Authentication using RingCentral SMS Messaging API. Click the \"Start Tutorial\" button below to start.",
+    "repo": "ringcentral-tutorials/SMS-based_2FA_Node",
+    "description": "Learn how to use RingCentral SMS API to implement Two-Factor Authentication for enhancing security. Click the \"Start Tutorial\" button below to start.",
     "heroku": false
 }
