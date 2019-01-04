@@ -1,5 +1,5 @@
 /node_modules
-db/users.db
+/db/users.db
 npm-debug.log
 .DS_Store
 /*.env
