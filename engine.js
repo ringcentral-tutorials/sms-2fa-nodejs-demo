@@ -54,9 +54,6 @@ var engine = module.exports = {
             return console.error(err.message);
           }
           if (!result){
-            //response['error'] = FAILED
-            //response['message'] = "Wrong user name and password combination. Please try again."
-            //return res.send(JSON.stringify(response))
             var message = "Wrong user name and password combination. Please try again."
             return res.send(createResponse(FAILED, message))
           }
@@ -77,9 +74,6 @@ var engine = module.exports = {
                   return console.error(err.message);
                 }
                 db.close()
-                //response['error'] = OK
-                //response['message'] = "Welcome back."
-                //return res.send(JSON.stringify(response))
                 var message = "Welcome back."
                 return res.send(createResponse(OK, message))
               });
@@ -99,9 +93,6 @@ var engine = module.exports = {
                   return console.error(err.message);
                 }
                 db.close()
-                //response['error'] = FAILED
-                //response['message'] = "Wrong user name and password combination. Please try again."
-                //res.send(JSON.stringify(response))
                 var message = "Wrong user name and password combination. Please try again."
                 return res.send(createResponse(FAILED, message))
               });
@@ -296,7 +287,7 @@ function sendSMSMessage (res, db, toNumber, message) {
         appSecret:process.env.CLIENT_SECRET_SB
       })
   }
-  var platform = rcsdk.platform();
+  var platform = rcsdk.platform()
   var thisRes = res
   var username, pwd = ""
   if (process.env.ENVIRONMENT_MODE == "production"){

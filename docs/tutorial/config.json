@@ -1,0 +1,6 @@
+{
+    "title": "How to implement Two-Factor Authentication",
+    "repo": "ringcentral-tutorials/sms-2fa-nodejs-demo",
+    "description": "Learn how to use RingCentral SMS API to implement Two-Factor Authentication for enhancing security. Click the \"Start Tutorial\" button below to start.",
+    "heroku": false
+}
