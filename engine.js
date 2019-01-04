@@ -6,8 +6,7 @@ const FAILED = 1
 const LOCKED = 2
 const INVALID = 3
 const UNKNOWN = 4
-const MAX_FAILURE = 3
-var response = {};
+const MAX_FAILURE = 2
 
 var engine = module.exports = {
     getSeed: function(req, res){
@@ -55,9 +54,11 @@ var engine = module.exports = {
             return console.error(err.message);
           }
           if (!result){
-            response['error'] = FAILED
-            response['message'] = "Wrong user name and password combination. Please try again."
-            return res.send(JSON.stringify(response))
+            //response['error'] = FAILED
+            //response['message'] = "Wrong user name and password combination. Please try again."
+            //return res.send(JSON.stringify(response))
+            var message = "Wrong user name and password combination. Please try again."
+            return res.send(createResponse(FAILED, message))
           }
           if (result.locked == 1){
             var maskPhoneNumber = result.phoneno
@@ -76,9 +77,11 @@ var engine = module.exports = {
                   return console.error(err.message);
                 }
                 db.close()
-                response['error'] = OK
-                response['message'] = "Welcome back."
-                return res.send(JSON.stringify(response))
+                //response['error'] = OK
+                //response['message'] = "Welcome back."
+                //return res.send(JSON.stringify(response))
+                var message = "Welcome back."
+                return res.send(createResponse(OK, message))
               });
             }else{
               var failure = result.failure
@@ -96,9 +99,11 @@ var engine = module.exports = {
                   return console.error(err.message);
                 }
                 db.close()
-                response['error'] = FAILED
-                response['message'] = "Wrong user name and password combination. Please try again."
-                res.send(JSON.stringify(response))
+                //response['error'] = FAILED
+                //response['message'] = "Wrong user name and password combination. Please try again."
+                //res.send(JSON.stringify(response))
+                var message = "Wrong user name and password combination. Please try again."
+                return res.send(createResponse(FAILED, message))
               });
             }
           }
@@ -115,9 +120,9 @@ var engine = module.exports = {
           return console.error(err.message);
         }
         if (!result){
-          response['error'] = UNKNOWN
-          response['message'] = "Account does not exist."
-          return res.send(JSON.stringify(response))
+          var message = "Account does not exist."
+          return res.send(createResponse(UNKNOWN, message))
+
         }
         var pwd = req.body.pwd
         var code = req.body.code
@@ -140,9 +145,8 @@ var engine = module.exports = {
                   databaseError(res)
                   return console.error(err.message);
                 }
-                response['error'] = OK
-                response['message'] = "Password changed successfully."
-                res.send(JSON.stringify(response))
+                var message = "Password changed successfully."
+                res.send(createResponse(OK, message))
               });
             }else{
               var query = "UPDATE users SET code= 0, codeexpiry= 0 WHERE email='" + email + "'";
@@ -152,16 +156,14 @@ var engine = module.exports = {
                   databaseError(res)
                   return console.error(err.message);
                 }
-                response['error'] = INVALID
-                response['message'] = "Invalid verification code. Click resend to get a new verification code."
-                res.send(JSON.stringify(response))
+                var message = "Invalid verification code. Click resend to get a new verification code."
+                res.send(createResponse(INVALID, message))
               });
             }
           }else{
             db.close()
-            response['error'] = INVALID
-            response['message'] = "Verification code expired. Click resend to get a new verification code."
-            res.send(JSON.stringify(response))
+            var message = "Verification code expired. Click resend to get a new verification code."
+            res.send(createResponse(INVALID, message))
           }
         }
       });
@@ -177,9 +179,8 @@ var engine = module.exports = {
           return console.error(err.message);
         }
         if (result.locked == 0){
-            response['error'] = OK
-            response['message'] = "Please login."
-            res.send(JSON.stringify(response))
+            var message = "Please login."
+            res.send(createResponse(OK, message))
           }
         else{
           if (inPasscode){
@@ -194,9 +195,8 @@ var engine = module.exports = {
                     databaseError(res)
                     return console.error(err.message);
                   }
-                  response['error'] = OK
-                  response['message'] = "Please login."
-                  res.send(JSON.stringify(response))
+                  var message = "Please login."
+                  res.send(createResponse(OK, message))
                 });
               }else{
                 var query = "UPDATE users SET code=0, codeexpiry=0 WHERE email='" + email + "'";
@@ -206,22 +206,19 @@ var engine = module.exports = {
                     databaseError(res)
                     return console.error(err.message);
                   }
-                  response['error'] = INVALID
-                  response['message'] = "Invalid verification code. Click resend to get a new verification code."
-                  res.send(JSON.stringify(response))
+                  var message = "Invalid verification code. Click resend to get a new verification code."
+                  res.send(createResponse(INVALID, message))
                 });
               }
             }else{
               db.close()
-              response['error'] = INVALID
-              response['message'] = "Verification code expired. Click resend to get a new verification code."
-              res.send(JSON.stringify(response))
+              var message = "Verification code expired. Click resend to get a new verification code."
+              res.send(createResponse(INVALID, message))
             }
           }else{
             db.close()
-            response['error'] = FAILED
-            response['message'] = "Invalid verification code. Not set"
-            res.send(JSON.stringify(response))
+            var message = "Invalid verification code. Not set"
+            res.send(createResponse(FAILED, message))
           }
         }
       });
@@ -269,9 +266,8 @@ var engine = module.exports = {
           databaseError(res)
           return console.error(err.message);
         }else{
-          response['error'] = OK
-          response['message'] = "Congratulations."
-          res.send(JSON.stringify(response))
+          var message = "Congratulations."
+          res.send(createResponse(OK, message))
         }
       });
     }
@@ -286,22 +282,40 @@ function generateRandomCode(digits) {
 function sendSMSMessage (res, db, toNumber, message) {
   var RC = require('ringcentral');
   // Instantiate RC-SDK
-  var rcsdk = new RC({
-      server: process.env.RC_SERVER,
-      appKey: process.env.RC_APP_KEY,
-      appSecret: process.env.RC_APP_SECRET
-  });
+  var rcsdk = null
+  if (process.env.ENVIRONMENT_MODE == "production"){
+    rcsdk = new RC({
+      server:RC.server.production,
+      appKey: process.env.CLIENT_ID_PROD,
+      appSecret:process.env.CLIENT_SECRET_PROD,
+    })
+  }else{
+    rcsdk = new RC({
+        server:RC.server.sandbox,
+        appKey: process.env.CLIENT_ID_SB,
+        appSecret:process.env.CLIENT_SECRET_SB
+      })
+  }
   var platform = rcsdk.platform();
   var thisRes = res
+  var username, pwd = ""
+  if (process.env.ENVIRONMENT_MODE == "production"){
+    username= process.env.USERNAME_PROD
+    pwd= process.env.PASSWORD_PROD
+  }else{
+    username= process.env.USERNAME_SB
+    pwd= process.env.PASSWORD_SB
+  }
+
   platform.login({
-    username: process.env.RC_USERNAME,
-    password: process.env.RC_PASSWORD
+    username:username,
+    password:pwd
     })
     .then(function(authResponse) {
       var code = generateRandomCode(6)
       platform.post('/account/~/extension/~/sms',
         {
-          from: {'phoneNumber': process.env.RC_USERNAME},
+          from: {'phoneNumber': username},
           to: [{'phoneNumber': toNumber}],
           text: "Your verification code is " + code
         })
@@ -315,21 +329,27 @@ function sendSMSMessage (res, db, toNumber, message) {
             }
             db.close()
           });
-          response['error'] = LOCKED
-          response['message'] = message
-          thisRes.send(JSON.stringify(response))
+          thisRes.send(createResponse(LOCKED, message))
         });
       })
       .catch(function(e) {
-          console.error(e);
-          response['error'] = UNKNOWN
-          response['message'] = "Cannot send verification code. Please click the Resend button to try again."
-          thisRes.send(JSON.stringify(response))
+          var message = "Cannot send verification code. Please click the Resend button to try again."
+          thisRes.send(createResponse(UNKNOWN, message))
     });
 }
 
 function databaseError(res){
-  response['error'] = UNKNOWN
-  response['message'] = "User database error. Please try again."
+  var response = {
+      'error': UNKNOWN,
+      'message': "User database error. Please try again."
+      }
   res.send(JSON.stringify(response))
+}
+
+function createResponse(error, message){
+    var response = {
+        'error': error,
+        'message': message
+    }
+    return JSON.stringify(response)
 }

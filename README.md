@@ -26,11 +26,21 @@ To setup a free developer account, click [https://developer/ringcentral.com](her
 * Enter a new password and the verification code then click the Submit button to change the password.
 * Login with a new password.
 
-### Clone the project
+### Clone - Setup - Run the project
 ```
-git clone https://github.com/ringcentral-tutorials/2f-auth-node
+$ git clone https://github.com/ringcentral-tutorials/sms-2fa-nodejs-demo
 
-cd 2f-auth-node
+$ cd sms-2fa-nodejs-node
 
-npm intall --save
+$ npm intall --save
+
+$ cp dotenv .env
+
+$ node index.js
 ```
+Remember to add your app client id and client secret as well as account login credentials to the .env file.
+
+Open your Web browser and enter localhost:5000
+
+## RingCentral JavaScript SDK
+The SDK is available at https://github.com/ringcentral/ringcentral-js
